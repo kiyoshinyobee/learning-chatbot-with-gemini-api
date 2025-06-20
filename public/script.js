@@ -1,7 +1,10 @@
 const form = document.getElementById('chat-form');
 const input = document.getElementById('user-input');
 const chatBox = document.getElementById('chat-box');
-const markdownConverter = new showdown.Converter();
+
+// Initialize Showdown converter with the 'tables' extension enabled
+// See: https://github.com/showdownjs/showdown/wiki/Showdown-options#extensions
+const markdownConverter = new showdown.Converter({ tables: true });
 
 form.addEventListener('submit', async function (e) {
   e.preventDefault();
@@ -13,11 +16,11 @@ form.addEventListener('submit', async function (e) {
   appendMessage('user', userMessage);
   input.value = ''; // Clear input field immediately
 
-  // Display a "Typing..." message for the bot
-  const botTypingMessage = document.createElement('div');
-  botTypingMessage.classList.add('message', 'bot');
-  botTypingMessage.textContent = 'thinking a while...';
-  chatBox.appendChild(botTypingMessage);
+  // Display a "thinking a while..." message for the bot
+  const botLoadingMessage = document.createElement('div');
+  botLoadingMessage.classList.add('message', 'bot');
+  botLoadingMessage.textContent = 'thinking a while...';
+  chatBox.appendChild(botLoadingMessage);
   chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
 
   // Fetching chat response
@@ -47,12 +50,12 @@ form.addEventListener('submit', async function (e) {
     const data = await response.json();
     // Convert Markdown response to HTML and update the message
     const htmlResponse = markdownConverter.makeHtml(data.response);
-    botTypingMessage.innerHTML = htmlResponse;
+    botLoadingMessage.innerHTML = htmlResponse;
   } catch (error) {
     console.error('Error sending message to backend:', error);
     // Error messages are typically plain text
     const htmlError = markdownConverter.makeHtml(`Sorry, an error occurred: ${error.message}`);
-    botTypingMessage.innerHTML = htmlError;
+    botLoadingMessage.innerHTML = htmlError;
   } finally {
     chatBox.scrollTop = chatBox.scrollHeight; // Ensure scroll to bottom after update
   }
