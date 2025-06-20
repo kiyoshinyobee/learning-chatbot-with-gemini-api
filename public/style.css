@@ -43,6 +43,57 @@ h1 {
   white-space: pre-wrap;
   position: relative; /* For potential future tail pseudo-elements */
 }
+.message h1, .message h2, .message h3, .message h4, .message h5, .message h6 {
+  margin-top: 0.8em;
+  margin-bottom: 0.4em;
+  line-height: 1.2;
+}
+
+.message p {
+  margin-top: 0;
+  margin-bottom: 0.8em;
+}
+
+.message ul, .message ol {
+  margin-top: 0;
+  margin-bottom: 0.8em;
+  padding-left: 20px;
+}
+
+.message li {
+  margin-bottom: 0.2em;
+}
+
+.message pre {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+  margin-bottom: 0.8em;
+}
+
+.message code { /* Inline code */
+  background-color: #f0f0f0;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+}
+
+.message pre code { /* Code within pre blocks should not have extra padding/bg */
+  background-color: transparent;
+  padding: 0;
+}
+
+.message blockquote {
+  border-left: 3px solid #ccc;
+  padding-left: 10px;
+  margin-left: 0;
+  margin-right: 0;
+  color: #555;
+}
 
 .message.user {
   background-color: #DCF8C6; /* WhatsApp outgoing message green */

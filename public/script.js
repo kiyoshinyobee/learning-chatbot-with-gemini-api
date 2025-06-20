@@ -1,6 +1,7 @@
 const form = document.getElementById('chat-form');
 const input = document.getElementById('user-input');
 const chatBox = document.getElementById('chat-box');
+const markdownConverter = new showdown.Converter();
 
 form.addEventListener('submit', async function (e) {
   e.preventDefault();
@@ -44,12 +45,14 @@ form.addEventListener('submit', async function (e) {
     }
 
     const data = await response.json();
-    // Update the "thinking a while..." message with the actual response
-    botTypingMessage.textContent = data.response;
+    // Convert Markdown response to HTML and update the message
+    const htmlResponse = markdownConverter.makeHtml(data.response);
+    botTypingMessage.innerHTML = htmlResponse;
   } catch (error) {
     console.error('Error sending message to backend:', error);
-    // Update the "thinking a while..." message with an error message
-    botTypingMessage.textContent = `Sorry, an error occurred: ${error.message}`;
+    // Error messages are typically plain text
+    const htmlError = markdownConverter.makeHtml(`Sorry, an error occurred: ${error.message}`);
+    botTypingMessage.innerHTML = htmlError;
   } finally {
     chatBox.scrollTop = chatBox.scrollHeight; // Ensure scroll to bottom after update
   }
@@ -58,7 +61,7 @@ form.addEventListener('submit', async function (e) {
 function appendMessage(sender, text) {
   const msg = document.createElement('div');
   msg.classList.add('message', sender);
-  msg.textContent = text;
+  msg.textContent = text; // User messages are kept as plain text for now
   chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
 }
