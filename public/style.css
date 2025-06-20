@@ -60,7 +60,7 @@ h1 {
 
 .message ul, .message ol {
   margin-top: 0;
-  margin-bottom: 0.8em;
+  margin-bottom: 0.5em; /* Reduced to match paragraph spacing */
   padding-left: 20px;
 }
 
@@ -75,7 +75,7 @@ h1 {
   overflow-x: auto; /* Allow horizontal scrolling for wide code */
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.9em;
-  margin-bottom: 0.8em;
+  margin-bottom: 0.5em; /* Reduced to match paragraph spacing */
 }
 
 .message code { /* Inline code */
@@ -96,13 +96,15 @@ h1 {
   padding-left: 10px;
   margin-left: 0; /* Ensure blockquote starts at the left edge of the bubble */
   margin-right: 0;
+  margin-bottom: 0.5em; /* Added for consistency */
   color: #555;
 }
 
 /* Styles for Markdown Tables */
 .message table {
   border-collapse: collapse; /* Remove space between borders */
-  margin: 1em 0; /* Add some vertical space around the table */
+  margin-top: 0.5em;    /* Reduced top margin */
+  margin-bottom: 0.5em; /* Reduced bottom margin */
   width: 100%; /* Make table take full width of the bubble */
   overflow-x: auto; /* Add horizontal scroll if table is too wide */
   display: block; /* Needed for overflow-x to work */
